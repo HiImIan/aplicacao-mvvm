@@ -1,17 +1,21 @@
+import 'package:aplicacao_mvvm/data/repositories/todos/todos_repository.dart';
+import 'package:aplicacao_mvvm/data/repositories/todos/todos_repository_dev.dart';
 import 'package:aplicacao_mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  late TodoViewmodel todoViewModel;
+  late TodosRepository todosRepository;
+  setUp(() {
+    todosRepository = TodosRepositoryDev();
+    todoViewModel = TodoViewmodel();
+  });
   group('Should test TodoViewModel', () {
     test('Verifying ViewModel initialState', () {
-      final TodoViewmodel todoViewModel = TodoViewmodel();
-
       expect(todoViewModel.todos, isEmpty);
     });
 
     test('Should add Todo', () async {
-      final TodoViewmodel todoViewModel = TodoViewmodel();
-
       expect(todoViewModel.todos, isEmpty);
 
       await todoViewModel.addTodo.execute('Test');
@@ -24,8 +28,6 @@ void main() {
     });
 
     test('Should remove Todo', () async {
-      final TodoViewmodel todoViewModel = TodoViewmodel();
-
       expect(todoViewModel.todos, isEmpty);
 
       await todoViewModel.addTodo.execute('Test');
