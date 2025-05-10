@@ -1,6 +1,6 @@
-import 'package:aplicacao_mvvm/core/result/result.dart';
 import 'package:aplicacao_mvvm/data/repositories/todos/todos_repository.dart';
 import 'package:aplicacao_mvvm/domain/models/todo.dart';
+import 'package:aplicacao_mvvm/utils/result/result.dart';
 
 class TodosRepositoryDev implements TodosRepository {
   final List<Todo> _todos = [];
@@ -8,7 +8,7 @@ class TodosRepositoryDev implements TodosRepository {
   Future<Result<Todo>> add(String name) async {
     final lastTodoIndex = _todos.length;
 
-    final Todo createdTodo = Todo(id: lastTodoIndex, name: name);
+    final Todo createdTodo = Todo(id: lastTodoIndex.toString(), name: name);
 
     return Result.ok(createdTodo);
   }
