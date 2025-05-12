@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:aplicacao_mvvm/data/services/api/models/todo/todo_api_model.dart';
 
 void main() {

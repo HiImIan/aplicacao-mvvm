@@ -8,7 +8,7 @@ void main() {
   late TodosRepository todosRepository;
   setUp(() {
     todosRepository = TodosRepositoryDev();
-    todoViewModel = TodoViewmodel();
+    todoViewModel = TodoViewmodel(todosRepository: todosRepository);
   });
   group('Should test TodoViewModel', () {
     test('Verifying ViewModel initialState', () {

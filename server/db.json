@@ -2,41 +2,8 @@
   "todos": [
     {
       "id": "1",
-      "text": "Learn React",
-      "name": "aaa"
-    },
-    {
-      "id": "2",
-      "text": "Build a Todo App",
-      "name": "tentando alterar"
-    },
-    {
-      "id": "32c2",
-      "name": "Todo created on test"
-    },
-    {
-      "id": "c0a0",
-      "name": "Todo created on test"
-    },
-    {
-      "id": "3e93",
-      "name": "Todo to delete",
-      "runtimeType": "update"
-    },
-    {
-      "id": "3289",
-      "name": "Todo to delete",
-      "runtimeType": "update"
-    },
-    {
-      "id": "e352",
-      "name": "create todo updated",
-      "runtimeType": "update"
-    },
-    {
-      "id": "310b",
-      "name": "create todo updated",
-      "runtimeType": "update"
+      "name": "abc",
+      "runtimeType": "create"
     }
   ]
 }
