@@ -1,7 +1,7 @@
-import 'package:aplicacao_mvvm/core/typedefs/todos.dart';
 import 'package:aplicacao_mvvm/domain/models/todo.dart';
 import 'package:aplicacao_mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 import 'package:aplicacao_mvvm/ui/todo/widgets/todo_tile.dart';
+import 'package:aplicacao_mvvm/utils/typedefs/todos.dart';
 import 'package:flutter/material.dart';
 
 class TodosList extends StatelessWidget {
