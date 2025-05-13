@@ -1,4 +1,4 @@
-import 'package:aplicacao_mvvm/core/result/result.dart';
+import 'package:aplicacao_mvvm/utils/result/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

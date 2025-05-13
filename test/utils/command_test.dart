@@ -1,5 +1,5 @@
-import 'package:aplicacao_mvvm/core/commands/commands.dart';
-import 'package:aplicacao_mvvm/core/result/result.dart';
+import 'package:aplicacao_mvvm/utils/commands/commands.dart';
+import 'package:aplicacao_mvvm/utils/result/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -69,7 +69,7 @@ void main() {
       expect(command1.error, true);
       expect(command1.completed, false);
 
-      expect(command1.result, isA<Error>());
+      expect(command1.result, isA<ResultError>());
     });
   });
 }
