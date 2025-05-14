@@ -4,10 +4,14 @@ import 'package:aplicacao_mvvm/routing/routes.dart';
 import 'package:aplicacao_mvvm/ui/home_page/home_page_widget.dart';
 import 'package:aplicacao_mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 import 'package:aplicacao_mvvm/ui/todo/widgets/todo_screen.dart';
+import 'package:aplicacao_mvvm/ui/todo_details/viewmodel/todo_details_viewmodel.dart';
 import 'package:aplicacao_mvvm/ui/todo_details/widget/todo_details_screen.dart';
 import 'package:go_router/go_router.dart';
 
 GoRouter routerConfig() {
+  final todoRepository = TodosRepositoryRemote(
+    apiClient: ApiClient(host: '192.168.0.225'),
+  );
   return GoRouter(routes: [
     GoRoute(
         path: Routes.initialRoute,
@@ -18,11 +22,7 @@ GoRouter routerConfig() {
         path: Routes.todos,
         builder: (context, state) {
           return TodoScreen(
-            todoViewmodel: TodoViewmodel(
-              todosRepository: TodosRepositoryRemote(
-                apiClient: ApiClient(host: '192.168.0.224'),
-              ),
-            ),
+            todoViewmodel: TodoViewModel(todosRepository: todoRepository),
           );
         },
         routes: [
@@ -30,7 +30,11 @@ GoRouter routerConfig() {
             path: ':id',
             builder: (context, state) {
               final todoId = state.pathParameters['id'];
-              return TodoDetailsScreen(id: todoId!);
+              final TodoDetailsViewModel todoDetailsViewModel =
+                  TodoDetailsViewModel(todosRepository: todoRepository);
+              todoDetailsViewModel.load.execute(todoId!);
+              return TodoDetailsScreen(
+                  todoDetailsViewModel: todoDetailsViewModel);
             },
           )
         ]),

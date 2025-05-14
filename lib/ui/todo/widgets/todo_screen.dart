@@ -4,7 +4,7 @@ import 'package:aplicacao_mvvm/ui/todo/widgets/todos_list.dart';
 import 'package:flutter/material.dart';
 
 class TodoScreen extends StatefulWidget {
-  final TodoViewmodel todoViewmodel;
+  final TodoViewModel todoViewmodel;
   const TodoScreen({super.key, required this.todoViewmodel});
 
   @override

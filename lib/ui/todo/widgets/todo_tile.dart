@@ -8,21 +8,31 @@ import 'package:go_router/go_router.dart';
 class TodoTile extends StatelessWidget {
   final OnDeleteTodo onDeleteTodo;
   final Todo todo;
-  final TodoViewmodel todoViewmodel;
+  final TodoViewModel todoViewModel;
   const TodoTile(
       {super.key,
       required this.todo,
-      required this.todoViewmodel,
+      required this.todoViewModel,
       required this.onDeleteTodo});
 
   @override
   Widget build(BuildContext context) {
+    final todoInfo = todo.todoInfo;
     return GestureDetector(
       onTap: () => context.push(Routes.todoDetails(todo.id)),
       child: Card(
         child: ListTile(
-          leading: Text(todo.id),
-          title: Text(todo.name),
+          leading: Checkbox(
+            value: todoInfo.done,
+            onChanged: (value) {
+              todoViewModel.updateTodo.execute(todo.copyWith(
+                todoInfo: todoInfo.copyWith(
+                  done: value,
+                ),
+              ));
+            },
+          ),
+          title: Text(todoInfo.name),
           trailing: IconButton(
             icon: const Icon(
               Icons.delete,

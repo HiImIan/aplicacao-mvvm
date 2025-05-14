@@ -4,11 +4,11 @@ import 'package:aplicacao_mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  late TodoViewmodel todoViewModel;
+  late TodoViewModel todoViewModel;
   late TodosRepository todosRepository;
   setUp(() {
     todosRepository = TodosRepositoryDev();
-    todoViewModel = TodoViewmodel(todosRepository: todosRepository);
+    todoViewModel = TodoViewModel(todosRepository: todosRepository);
   });
   group('Should test TodoViewModel', () {
     test('Verifying ViewModel initialState', () {

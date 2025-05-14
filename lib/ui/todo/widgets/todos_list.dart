@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class TodosList extends StatelessWidget {
   final List<Todo> todos;
-  final TodoViewmodel todoViewmodel;
+  final TodoViewModel todoViewmodel;
   final OnDeleteTodo onDeleteTodo;
   const TodosList(
       {super.key,
@@ -27,7 +27,7 @@ class TodosList extends StatelessWidget {
         final todo = todos[index];
         return TodoTile(
           todo: todo,
-          todoViewmodel: todoViewmodel,
+          todoViewModel: todoViewmodel,
           onDeleteTodo: onDeleteTodo,
         );
       },

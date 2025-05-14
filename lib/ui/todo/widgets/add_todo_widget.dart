@@ -1,8 +1,9 @@
+import 'package:aplicacao_mvvm/domain/models/todo_infos.dart';
 import 'package:aplicacao_mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class AddTodoWidget extends StatefulWidget {
-  final TodoViewmodel todoViewmodel;
+  final TodoViewModel todoViewmodel;
   const AddTodoWidget({super.key, required this.todoViewmodel});
 
   @override
@@ -94,7 +95,10 @@ class _AddTodoWidgetState extends State<AddTodoWidget> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    widget.todoViewmodel.addTodo.execute(_nameController.text);
+                    widget.todoViewmodel.addTodo.execute(TodoInfo(
+                        name: _nameController.text,
+                        description: 'description',
+                        done: false));
                     _nameController.clear();
                   }
                 },

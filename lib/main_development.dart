@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       home: TodoScreen(
-        todoViewmodel: TodoViewmodel(
+        todoViewmodel: TodoViewModel(
           todosRepository: TodosRepositoryDev(),
         ),
       ),
