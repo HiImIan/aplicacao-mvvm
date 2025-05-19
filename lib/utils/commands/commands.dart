@@ -1,4 +1,4 @@
-import 'package:aplicacao_mvvm/core/result/result.dart';
+import 'package:aplicacao_mvvm/utils/result/result.dart';
 import 'package:flutter/material.dart';
 
 // Command 0 não possui parametros de entrada
@@ -23,7 +23,7 @@ abstract class Command<Output> extends ChangeNotifier {
   bool get completed => _result is Ok;
 
   // verifica se houve erro
-  bool get error => _result is Error;
+  bool get error => _result is ResultError;
 
   Future<void> _execute(CommandAction0<Output> action) async {
     if (_running) return; // se já estiver em execução, não faz nada
