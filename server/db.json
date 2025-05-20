@@ -1,16 +1,9 @@
 {
   "todos": [
     {
-      "id": "00c3",
-      "name": "teste",
-      "description": "teste",
-      "done": false,
-      "runtimeType": "update"
-    },
-    {
-      "id": "d7cc",
-      "name": "aaaa",
-      "description": "bbbbdddd",
+      "id": "51fa",
+      "name": "aaa",
+      "description": "bbb",
       "done": false,
       "runtimeType": "update"
     }

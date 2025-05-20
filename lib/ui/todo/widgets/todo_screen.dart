@@ -19,17 +19,21 @@ class _TodoScreenState extends State<TodoScreen> {
   void initState() {
     super.initState();
     
+    // Registra o listener usando a classe utilitária
     _removeListener = OperationFeedbackHandler.registerOperationListener(
       context: context,
       operation: widget.todoViewModel.deleteTodo,
       getIsRunning: () => widget.todoViewModel.deleteTodo.running,
       getIsCompleted: () => widget.todoViewModel.deleteTodo.completed,
       getHasError: () => widget.todoViewModel.deleteTodo.error,
+      successMessage: 'Tarefa removida com sucesso!',
+      errorMessage: 'Ocorreu um erro ao remover a tarefa!',
     );
   }
 
   @override
   void dispose() {
+    // Remove o listener usando a função retornada
     if (_removeListener != null) {
       _removeListener!();
     }

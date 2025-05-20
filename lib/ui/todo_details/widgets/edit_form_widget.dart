@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 class EditFormWidget extends StatefulWidget {
   final TodoDetailsViewModel todoDetailsViewModel;
-  final Todo todo; 
-  const EditFormWidget({super.key, required this.todoDetailsViewModel,required this.todo});
+  final Todo todo;
+  const EditFormWidget(
+      {super.key, required this.todoDetailsViewModel, required this.todo});
 
   @override
   State<EditFormWidget> createState() => _TodoFormWidgetState();
@@ -20,24 +21,39 @@ class _TodoFormWidgetState extends State<EditFormWidget> {
 
   final verticalGap = const SizedBox(height: 16);
 
-  
-  Function? _feedBackListener;
+    Function? _feedBackListener;
 
-
+  @override
+  void initState() {
+    super.initState();
+        _feedBackListener = OperationFeedbackHandler.registerOperationListener(
+      context: context,
+      operation: widget.todoDetailsViewModel.updateTodo,
+      getIsRunning: () => widget.todoDetailsViewModel.updateTodo.running,
+      getIsCompleted: () => widget.todoDetailsViewModel.updateTodo.completed,
+      getHasError: () => widget.todoDetailsViewModel.updateTodo.error,
+      successMessage: 'Formulário editado com sucesso!',
+      errorMessage: 'Erro ao editar o formulário!',
+    );
+      }
 
   @override
   void dispose() {
     super.dispose();
     _nameController.dispose();
     _descriptionController.dispose();
+       if (_feedBackListener != null) {
+      _feedBackListener!();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final todoId = widget.todo.id;
-    final todoInfo = widget.todo.todoInfo;
-      _nameController.text = todoInfo.name;
-      _descriptionController.text = todoInfo.description;
+    final todo = widget.todo;
+    final todoInfo = todo.todoInfo;
+    _nameController.text = todoInfo.name;
+    _descriptionController.text = todoInfo.description;
     return AlertDialog(
       content: IntrinsicHeight(
         child: SingleChildScrollView(
@@ -45,7 +61,7 @@ class _TodoFormWidgetState extends State<EditFormWidget> {
             key: _formKey,
             child: Column(
               children: [
-                 Text(  'Editar Todo'),
+                Text('Editar Todo'),
                 verticalGap,
                 TextFormField(
                   controller: _nameController,
@@ -75,19 +91,15 @@ class _TodoFormWidgetState extends State<EditFormWidget> {
                   onPressed: () {
                     final updateTodo = widget.todoDetailsViewModel.updateTodo;
                     if (_formKey.currentState!.validate()) {
-                      
-                        updateTodo.execute(Todo(
-                          id: todoId,
-                          todoInfo: TodoInfo(
-                            name: _nameController.text,
-                            description: _descriptionController.text,
-                            done: todoInfo.done,
-                          ),
-                        ));    
-                      }
-                    
+                      final newTodoInfo = todoInfo.copyWith(
+                        name: _nameController.text,
+                        description: _descriptionController.text,
+                      );
+                      final todoUpdated = todo.copyWith(todoInfo: newTodoInfo);
+                      updateTodo.execute(todoUpdated).whenComplete(() => Navigator.of(context).pop());
+                    }
                   },
-                  child:   Text( 'Editar'),
+                  child: Text('Editar'),
                 ),
               ],
             ),

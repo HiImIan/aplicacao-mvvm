@@ -32,7 +32,7 @@ class _AddFormWidgetState extends State<AddFormWidget> {
       getIsCompleted: () => widget.todoViewModel.addTodo.completed,
       getHasError: () => widget.todoViewModel.addTodo.error,
       successMessage: 'Formulário enviado com sucesso!',
-      errorMessage: 'Erro ao enviar formulário!',
+      errorMessage: 'Erro ao adicionar o a fazer!',
     );
       }
 
@@ -83,13 +83,14 @@ class _AddFormWidgetState extends State<AddFormWidget> {
                 ),
                 verticalGap,
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final addTodo = widget.todoViewModel.addTodo;
                     if (_formKey.currentState!.validate()) {
-                        addTodo.execute(TodoInfo(
+                       await addTodo.execute(TodoInfo(
                           name: _nameController.text,
                           description: _descriptionController.text,
                           done: false));
+                          Navigator.of(context).pop();
                     }
                   },
                   child:   Text('Adicionar'),

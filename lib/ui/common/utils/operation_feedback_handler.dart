@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:aplicacao_mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
 
 class OperationFeedbackHandler {
   /// Gerencia o feedback visual para operações assíncronas
