@@ -68,7 +68,6 @@ class TodoViewModel extends ChangeNotifier {
       final result = await _todosRepository.add(todoInfo);
       switch (result) {
         case Ok<Todo>():
-          _todos.add(result.value);
           _log.fine('Todos criado');
           break;
         case Error():
@@ -89,7 +88,6 @@ class TodoViewModel extends ChangeNotifier {
       final result = await _todosRepository.delete(todo);
       switch (result) {
         case Ok<void>():
-          _todos.remove(todo);
           _log.fine('Todos deletado');
           break;
         case Error():
