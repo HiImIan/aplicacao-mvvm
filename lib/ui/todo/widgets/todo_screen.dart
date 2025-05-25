@@ -1,65 +1,43 @@
 import 'package:aplicacao_mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
-import 'package:aplicacao_mvvm/ui/todo/widgets/add_todo_widget.dart';
+import 'package:aplicacao_mvvm/ui/todo/widgets/add_form_widget.dart';
 import 'package:aplicacao_mvvm/ui/todo/widgets/todos_list.dart';
+import 'package:aplicacao_mvvm/ui/common/utils/operation_feedback_handler.dart';
 import 'package:flutter/material.dart';
 
 class TodoScreen extends StatefulWidget {
-  final TodoViewmodel todoViewmodel;
-  const TodoScreen({super.key, required this.todoViewmodel});
+  final TodoViewModel todoViewModel;
+  const TodoScreen({super.key, required this.todoViewModel});
 
   @override
   State<TodoScreen> createState() => _TodoScreenState();
 }
 
 class _TodoScreenState extends State<TodoScreen> {
+  Function? _removeListener;
+
   @override
   void initState() {
     super.initState();
-    widget.todoViewmodel.deleteTodo.addListener(_onResult);
-  }
-
-  void _onResult() {
-    if (widget.todoViewmodel.deleteTodo.running) {
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return const AlertDialog(
-              content: IntrinsicHeight(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            );
-          });
-    } else {
-      Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      if (widget.todoViewmodel.deleteTodo.completed) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.green,
-            content: Text('Tarefa removida com sucesso!'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
-      if (widget.todoViewmodel.deleteTodo.error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.red,
-            content: Text('Ocorreu um erro ao remover a tarefa!'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
-    }
+    
+    // Registra o listener usando a classe utilitária
+    _removeListener = OperationFeedbackHandler.registerOperationListener(
+      context: context,
+      operation: widget.todoViewModel.deleteTodo,
+      getIsRunning: () => widget.todoViewModel.deleteTodo.running,
+      getIsCompleted: () => widget.todoViewModel.deleteTodo.completed,
+      getHasError: () => widget.todoViewModel.deleteTodo.error,
+      successMessage: 'Tarefa removida com sucesso!',
+      errorMessage: 'Ocorreu um erro ao remover a tarefa!',
+    );
   }
 
   @override
   void dispose() {
+    // Remove o listener usando a função retornada
+    if (_removeListener != null) {
+      _removeListener!();
+    }
     super.dispose();
-    widget.todoViewmodel.deleteTodo.removeListener(_onResult);
   }
 
   @override
@@ -67,12 +45,12 @@ class _TodoScreenState extends State<TodoScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Todo Screen')),
       body: ListenableBuilder(
-        listenable: widget.todoViewmodel.load,
+        listenable: widget.todoViewModel.load,
         builder: (context, child) {
-          if (widget.todoViewmodel.load.running) {
+          if (widget.todoViewModel.load.running) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (widget.todoViewmodel.load.error) {
+          if (widget.todoViewModel.load.error) {
             return const Center(
                 child: Text('Ocorreu um erro ao carregar todos...'));
           }
@@ -80,14 +58,14 @@ class _TodoScreenState extends State<TodoScreen> {
           return child!;
         },
         child: ListenableBuilder(
-          listenable: widget.todoViewmodel,
+          listenable: widget.todoViewModel,
           builder: (context, child) {
             return TodosList(
               onDeleteTodo: (todo) {
-                widget.todoViewmodel.deleteTodo.execute(todo);
+                widget.todoViewModel.deleteTodo.execute(todo);
               },
-              todos: widget.todoViewmodel.todos,
-              todoViewmodel: widget.todoViewmodel,
+              todos: widget.todoViewModel.todos,
+              todoViewmodel: widget.todoViewModel,
             );
           },
         ),
@@ -97,7 +75,7 @@ class _TodoScreenState extends State<TodoScreen> {
           showDialog(
             context: context,
             builder: (context) {
-              return AddTodoWidget(todoViewmodel: widget.todoViewmodel);
+              return AddFormWidget(todoViewModel: widget.todoViewModel);
             },
           );
         },

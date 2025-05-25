@@ -3,11 +3,11 @@
 import 'package:aplicacao_mvvm/data/services/api/models/todo/todo_api_model.dart';
 
 void main() {
-  const TodoApiModel todoApiModel = TodoApiModel.create(name: 'teste');
+  const TodoApiModel todoApiModel = TodoApiModel.create(name: 'teste',description: 'descrição', done: false);
   print(todoApiModel.toJson());
-  const todoCreate = CreateTodoApiModel(name: 'Teste');
+  const todoCreate = CreateTodoApiModel(name: 'teste',description: 'descrição', done: false);
   print(todoCreate.toJson());
 
-  const todoUpdate = UpdateTodoApiModel(id: '1', name: 'Teste');
+  const todoUpdate = UpdateTodoApiModel(id: '1', name: 'Teste',description: 'descrição', done: false);
   print(todoUpdate.toJson());
 }
