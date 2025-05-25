@@ -9,8 +9,8 @@ Fornecer uma base robusta para o desenvolvimento de aplicativos Flutter utilizan
 - Organização de pastas: Estrutura modular para fácil navegação e entendimento.
 ## Como Executar
 1. Pré-requisitos:
-   - Flutter instalado ( documentação oficial )
-   - Node.js ou variante compatível para o servidor backend
+   - Flutter instalado ( https://docs.flutter.dev/get-started/install )
+   - Node.js ou variante compatível para o servidor backend 
 2. Instalação:
    - Clone o repositório
    - Execute flutter pub get para instalar as dependências
