@@ -8,7 +8,7 @@ import 'package:provider/single_child_widget.dart';
 
 List<SingleChildWidget> get providersRemote {
   return [
-    Provider(create: (_) => ApiClient(host: '192.168.0.225')),
+    Provider(create: (_) => ApiClient(host: '192.168.0.224')),
     ChangeNotifierProvider(
       create: (context) => TodosRepositoryRemote(
         apiClient: context.read(),

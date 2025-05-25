@@ -42,7 +42,7 @@ finally {
   }
 
   @override
-  Future<Result<Todo>> getById(String id) async {
+  Future<Result<Todo>> getTodoById(String id) async {
     return Result.ok(_todos.firstWhere((todo) => todo.id == id));
   }
 

@@ -5,6 +5,7 @@ import 'package:aplicacao_mvvm/domain/use_cases/todo_update_use_case.dart';
 import 'package:aplicacao_mvvm/utils/commands/commands.dart';
 import 'package:aplicacao_mvvm/utils/result/result.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 
 class TodoViewModel extends ChangeNotifier {
   late Command0 load;
@@ -18,6 +19,8 @@ class TodoViewModel extends ChangeNotifier {
   final TodosRepository _todosRepository;
 
   final TodoUpdateUseCase _todoUpdateUseCase;
+
+  final _log = Logger('TodoViewModel');
 
   TodoViewModel(
       {required TodosRepository todosRepository,
@@ -41,16 +44,20 @@ class TodoViewModel extends ChangeNotifier {
   Future<Result> _load() async {
     try {
       final result = await _todosRepository.get();
-
+      final aaa = 2;
       switch (result) {
         case Ok<List<Todo>>():
           _todos = result.value;
+          _log.fine('Todos carregados');
           break;
         case Error():
+        _log.warning('Falha ao carregar todos', result.asError.error);
+        break;
       }
 
       return result;
-    } on Exception catch (error) {
+    } on Exception catch (error, stackTrace) {
+        _log.warning('Falha ao carregar todos', error, stackTrace);
       return Result.error(error);
     } finally {
       notifyListeners();
@@ -63,11 +70,16 @@ class TodoViewModel extends ChangeNotifier {
       switch (result) {
         case Ok<Todo>():
           _todos.add(result.value);
+          _log.fine('Todos criado');
           break;
         case Error():
+          _log.warning('Erro ao criar todo');
+          break;
       }
       return result;
-    } on Exception catch (error) {
+    } on Exception catch (error, stackTrace) {
+      
+          _log.warning('Erro ao criar todo', error, stackTrace);
       return Result.error(error);
     } finally {
       notifyListeners();
@@ -80,11 +92,14 @@ class TodoViewModel extends ChangeNotifier {
       switch (result) {
         case Ok<void>():
           _todos.remove(todo);
+          _log.fine('Todos deletado');
           break;
-        case Error():
+        case Error():   _log.warning('Erro ao deletar todo');
+          break;
       }
       return result;
-    } on Exception catch (error) {
+    } on Exception catch (error,stackTrace) {
+          _log.warning('Erro ao deletar todo', error, stackTrace);
       return Result.error(error);
     } finally {
       notifyListeners();

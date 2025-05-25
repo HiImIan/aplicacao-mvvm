@@ -3,7 +3,7 @@ class TodoInfo {
   final String description;
   final bool done;
 
-  TodoInfo({required this.name, required this.description, required this.done});
+ const TodoInfo({required this.name, required this.description, required this.done});
 
   @override
   String toString() =>

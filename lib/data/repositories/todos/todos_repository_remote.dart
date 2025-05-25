@@ -39,7 +39,7 @@ class TodosRepositoryRemote extends ChangeNotifier implements TodosRepository {
   }
 
   @override
-  Future<Result<Todo>> getById(String id) async {
+  Future<Result<Todo>> getTodoById(String id) async {
     if (_cachedTodos.containsKey(id)) {
       return Result.ok(_cachedTodos[id]!);
     }
@@ -69,6 +69,8 @@ class TodosRepositoryRemote extends ChangeNotifier implements TodosRepository {
 
       switch (result) {
         case Ok<Todo>():
+          _cachedTodos[result.value.id] = result.value;
+        _todos.add(result.value);
           return Result.ok(result.value);
 
         default:
@@ -116,6 +118,7 @@ class TodosRepositoryRemote extends ChangeNotifier implements TodosRepository {
 
       switch (result) {
         case Ok<void>():
+        _todos.remove(todo);
         _cachedTodos.remove(todo.id);
           return Result.ok(null);
 

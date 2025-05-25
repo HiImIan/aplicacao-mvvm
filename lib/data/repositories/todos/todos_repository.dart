@@ -9,7 +9,7 @@ abstract class TodosRepository extends ChangeNotifier{
 
   Future<Result<List<Todo>>> get();
 
-  Future<Result<Todo>> getById(String id);
+  Future<Result<Todo>> getTodoById(String id);
 
   Future<Result<Todo>> add(TodoInfo name);
 

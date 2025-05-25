@@ -31,7 +31,7 @@ class TodoDetailsViewModel extends ChangeNotifier {
 
   Future<Result<Todo>> _load(String id) async {
     try {
-      final result = await _todosRepository.getById(id);
+      final result = await _todosRepository.getTodoById(id);
       switch (result) {
         case Ok<Todo>():
           _todo = result.value;
