@@ -1,6 +1,5 @@
 import 'package:aplicacao_mvvm/data/repositories/todos/todos_repository_remote.dart';
 import 'package:aplicacao_mvvm/data/services/api/api_client.dart';
-import 'package:aplicacao_mvvm/data/services/api/models/todo/todo_api_model.dart';
 import 'package:aplicacao_mvvm/domain/models/todo.dart';
 import 'package:aplicacao_mvvm/domain/models/todo_infos.dart';
 import 'package:aplicacao_mvvm/utils/result/result.dart';
@@ -84,7 +83,7 @@ void main() {
       expect(wasNotifier, true);
     });
 
-    test('delete()', () async{
+    test('delete()', () async {
       when(() => apiClient.deleteTodo(addTodoMock)).thenAnswer(
         (invocation) => Future.value(Result.ok(null)),
       );
@@ -99,7 +98,7 @@ void main() {
 
       expect(result, isA<Ok<List<Todo>>>());
 
-      expect(todosRepository.todos.contains(addTodoMock),isTrue);
+      expect(todosRepository.todos.contains(addTodoMock), isTrue);
 
       bool wasNotifier = false;
 
@@ -116,7 +115,7 @@ void main() {
       expect(wasNotifier, isTrue);
     });
 
-    test('updateTodo()', () async{
+    test('updateTodo()', () async {
       when(() => apiClient.getTodos()).thenAnswer(
         (invocation) => Future.value(
           Result.ok(todos),
@@ -133,7 +132,6 @@ void main() {
 
       expect(result, isA<Ok<List<Todo>>>());
 
-
       bool wasNotifier = false;
 
       todosRepository.addListener(
@@ -141,7 +139,12 @@ void main() {
       );
 
       final updateTodoResult = await todosRepository.update(
-        todos.first.copyWith(todoInfo: todos.first.todoInfo.copyWith(name: 'novo nome',description: 'nova descrição',done: true,)),
+        todos.first.copyWith(
+            todoInfo: todos.first.todoInfo.copyWith(
+          name: 'novo nome',
+          description: 'nova descrição',
+          done: true,
+        )),
       );
 
       expect(updateTodoResult, isA<Ok<Todo>>());

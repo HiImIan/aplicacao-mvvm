@@ -1,4 +1,3 @@
-import 'package:aplicacao_mvvm/domain/models/todo_infos.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'todo_api_model.freezed.dart';

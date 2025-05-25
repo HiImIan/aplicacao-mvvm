@@ -44,20 +44,19 @@ class TodoViewModel extends ChangeNotifier {
   Future<Result> _load() async {
     try {
       final result = await _todosRepository.get();
-      final aaa = 2;
       switch (result) {
         case Ok<List<Todo>>():
           _todos = result.value;
           _log.fine('Todos carregados');
           break;
         case Error():
-        _log.warning('Falha ao carregar todos', result.asError.error);
-        break;
+          _log.warning('Falha ao carregar todos', result.asError.error);
+          break;
       }
 
       return result;
     } on Exception catch (error, stackTrace) {
-        _log.warning('Falha ao carregar todos', error, stackTrace);
+      _log.warning('Falha ao carregar todos', error, stackTrace);
       return Result.error(error);
     } finally {
       notifyListeners();
@@ -78,8 +77,7 @@ class TodoViewModel extends ChangeNotifier {
       }
       return result;
     } on Exception catch (error, stackTrace) {
-      
-          _log.warning('Erro ao criar todo', error, stackTrace);
+      _log.warning('Erro ao criar todo', error, stackTrace);
       return Result.error(error);
     } finally {
       notifyListeners();
@@ -94,12 +92,13 @@ class TodoViewModel extends ChangeNotifier {
           _todos.remove(todo);
           _log.fine('Todos deletado');
           break;
-        case Error():   _log.warning('Erro ao deletar todo');
+        case Error():
+          _log.warning('Erro ao deletar todo');
           break;
       }
       return result;
-    } on Exception catch (error,stackTrace) {
-          _log.warning('Erro ao deletar todo', error, stackTrace);
+    } on Exception catch (error, stackTrace) {
+      _log.warning('Erro ao deletar todo', error, stackTrace);
       return Result.error(error);
     } finally {
       notifyListeners();
