@@ -1,4 +1,3 @@
-import 'package:aplicacao_mvvm/domain/models/todo.dart';
 import 'package:aplicacao_mvvm/domain/models/todo_infos.dart';
 import 'package:aplicacao_mvvm/ui/common/utils/operation_feedback_handler.dart';
 import 'package:aplicacao_mvvm/ui/todo/viewmodels/todo_viewmodel.dart';
@@ -19,13 +18,12 @@ class _AddFormWidgetState extends State<AddFormWidget> {
 
   final verticalGap = const SizedBox(height: 16);
 
-  
   Function? _feedBackListener;
 
   @override
   void initState() {
     super.initState();
-        _feedBackListener = OperationFeedbackHandler.registerOperationListener(
+    _feedBackListener = OperationFeedbackHandler.registerOperationListener(
       context: context,
       operation: widget.todoViewModel.addTodo,
       getIsRunning: () => widget.todoViewModel.addTodo.running,
@@ -34,8 +32,7 @@ class _AddFormWidgetState extends State<AddFormWidget> {
       successMessage: 'Formulário enviado com sucesso!',
       errorMessage: 'Erro ao adicionar o a fazer!',
     );
-      }
-
+  }
 
   @override
   void dispose() {
@@ -56,7 +53,7 @@ class _AddFormWidgetState extends State<AddFormWidget> {
             key: _formKey,
             child: Column(
               children: [
-                 Text(  'Adicionar Todo'),
+                const Text('Adicionar Todo'),
                 verticalGap,
                 TextFormField(
                   controller: _nameController,
@@ -86,14 +83,14 @@ class _AddFormWidgetState extends State<AddFormWidget> {
                   onPressed: () async {
                     final addTodo = widget.todoViewModel.addTodo;
                     if (_formKey.currentState!.validate()) {
-                       await addTodo.execute(TodoInfo(
+                      await addTodo.execute(TodoInfo(
                           name: _nameController.text,
                           description: _descriptionController.text,
                           done: false));
-                          Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     }
                   },
-                  child:   Text('Adicionar'),
+                  child: const Text('Adicionar'),
                 ),
               ],
             ),

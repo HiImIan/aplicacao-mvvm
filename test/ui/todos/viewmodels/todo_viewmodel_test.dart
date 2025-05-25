@@ -12,7 +12,8 @@ void main() {
   setUp(() {
     todosRepository = TodosRepositoryDev();
     todoUpdateUseCase = TodoUpdateUseCase(todosRepository: todosRepository);
-    todoViewModel = TodoViewModel(todosRepository: todosRepository,todoUpdateUseCase: todoUpdateUseCase);
+    todoViewModel = TodoViewModel(
+        todosRepository: todosRepository, todoUpdateUseCase: todoUpdateUseCase);
   });
   group('Should test TodoViewModel', () {
     test('Verifying ViewModel initialState', () {
@@ -22,7 +23,8 @@ void main() {
     test('Should add Todo', () async {
       expect(todoViewModel.todos, isEmpty);
 
-      await todoViewModel.addTodo.execute(TodoInfo(name: 'nome', description: 'descrição', done: false));
+      await todoViewModel.addTodo.execute(
+          const TodoInfo(name: 'nome', description: 'descrição', done: false));
 
       expect(todoViewModel.todos, isNotEmpty);
 
@@ -34,11 +36,12 @@ void main() {
     test('Should remove Todo', () async {
       expect(todoViewModel.todos, isEmpty);
 
-      await todoViewModel.addTodo.execute(TodoInfo(name: 'nome', description: 'descrição', done: false));
+      await todoViewModel.addTodo.execute(
+          const TodoInfo(name: 'nome', description: 'descrição', done: false));
 
       expect(todoViewModel.todos, isNotEmpty);
 
-      expect(todoViewModel.todos.first.todoInfo .name, contains('nome'));
+      expect(todoViewModel.todos.first.todoInfo.name, contains('nome'));
 
       expect(todoViewModel.todos.first.id, isNotNull);
 
