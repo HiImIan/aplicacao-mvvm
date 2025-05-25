@@ -7,7 +7,11 @@ import 'package:provider/provider.dart';
 void main() {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
-  });
-  runApp(MultiProvider(providers: providersLocal,child: const MyApp(),));
-}
+    print('${record.level} - ${record.loggerName} - ${record.message}');
+   if (record.stackTrace != null) {
+    print(record.error);    
+    print(record.stackTrace);    
+  }});
+ 
+  runApp(MultiProvider(providers: providersRemote, child: const MyApp() ));
+}   
