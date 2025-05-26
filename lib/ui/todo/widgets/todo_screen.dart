@@ -43,7 +43,7 @@ class _TodoScreenState extends State<TodoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Todo Screen')),
+      appBar: AppBar(title: const Text('Lista de Tarefas')),
       body: ListenableBuilder(
         listenable: widget.todoViewModel.load,
         builder: (context, child) {
