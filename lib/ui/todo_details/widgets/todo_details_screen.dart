@@ -18,7 +18,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
     final viewModel = widget.todoDetailsViewModel;
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Todo Details'),
+          title: const Text('Detalhes da tarefa'),
         ),
         body: ListenableBuilder(
           listenable: viewModel.load,
